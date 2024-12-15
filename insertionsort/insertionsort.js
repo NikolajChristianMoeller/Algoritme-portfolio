@@ -1,64 +1,49 @@
-const list = [5, 8, 2, 1, 0, 4, 3, 9, 7, 6];
-console.log("Original array:", list);
-const sortedList = insertionSortShift(list);
-console.log("Sorted array:", sortedList);
-
-function insertionSortShift(array) {
-  let iterationCount = 0;
-
-  for (let i = 1; i < array.length; i++) {
-    let key = array[i];
-    let j = i - 1;
-
-    console.group(`Iteration ${i}: key = ${key}`);
-
-    while (j >= 0 && array[j] > key) {
-      array[j + 1] = array[j];
-      j--;
-      iterationCount++;
-
-      console.log(
-        `Shifted ${array[j + 1]} from index ${j + 1} to index ${j + 2}`
-      );
+let shiftIterations = 0;
+/**
+ *
+ * @param {any[]} arr
+ * @returns {any[]}
+ */
+export function insertionSortShift(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    const cur = arr[i];
+    if (arr[i] >= arr[i - 1]) {
+      continue;
     }
-
-    array[j + 1] = key;
-    iterationCount++;
-
-    console.log(`Inserted key = ${key} at index ${j + 1}`);
-    console.groupEnd();
+    let j = i;
+    while (arr[j - 1] > cur && j > 0) {
+      shiftIterations++;
+      arr[j] = arr[--j];
+    }
+    arr[j] = cur;
   }
 
-  console.log(`Total iterations: ${iterationCount}`);
-  return array;
+  return arr;
 }
 
-function insertionSortSwap(array) {
-  let iterationCount = 0;
-
-  function swap(indexA, indexB) {
-    const temp = array[indexA];
-    array[indexA] = array[indexB];
-    array[indexB] = temp;
-  }
-
-  for (let i = 1; i < array.length; i++) {
-    console.group(`Iteration ${i}: array = [${array.join(", ")}]`);
-
+let swapIterations = 0;
+/**
+ *
+ * @param {any[]} arr
+ * @returns {any[]}
+ */
+export function insertionSortSwap(arr) {
+  for (let i = 1; i < arr.length; i++) {
     let j = i;
-
-    while (j > 0 && array[j] < array[j - 1]) {
-      swap(j, j - 1);
-      console.log(
-        `Swapped ${array[j]} and ${array[j - 1]} at indices ${j} and ${j - 1}`
-      );
-      j--;
-      iterationCount++;
+    while (j > 0 && arr[j - 1] > arr[j]) {
+      swapIterations++;
+      const tmp = arr[j];
+      arr[j] = arr[--j];
+      arr[j] = tmp;
     }
-
-    console.groupEnd();
   }
+  return arr;
+}
 
-  console.log(`Total iterations: ${iterationCount}`);
-  return array;
+export function getShiftIterations() {
+  return shiftIterations;
+}
+
+export function getSwapIterations() {
+  return swapIterations;
 }

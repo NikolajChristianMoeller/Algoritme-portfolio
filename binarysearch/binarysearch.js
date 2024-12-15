@@ -1,4 +1,10 @@
-"use strict";
+const numbers = [1, 3, 5, 7, 9, 11];
+const index = binarySearch(7, numbers);
+console.log(index);
+
+const words = ["apple", "banana", "cherry", "date"];
+const wordIndex = binarySearch("cherry", words);
+console.log(wordIndex);
 
 function binarySearch(search, values, compareFunc) {
   if (!compareFunc) {
@@ -36,11 +42,3 @@ function binarySearch(search, values, compareFunc) {
   console.log(`Iterations: ${iterations}`);
   return -1;
 }
-
-const numbers = [1, 3, 5, 7, 9, 11];
-const index = binarySearch(7, numbers);
-console.log(index);
-
-const words = ["apple", "banana", "cherry", "date"];
-const wordIndex = binarySearch("cherry", words);
-console.log(wordIndex);
